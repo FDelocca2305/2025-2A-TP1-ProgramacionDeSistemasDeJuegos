@@ -9,12 +9,18 @@ namespace Excercise1
 
         protected virtual void OnEnable()
         {
-            CharacterService.Instance.TryAddCharacter(id, this);
+            if (CharacterService.Instance.TryAddCharacter(id, this))
+            {
+                Debug.LogError("Error in TryAddCharacter - Can't add character");
+            }
         }
 
         protected virtual void OnDisable()
         {
-            CharacterService.Instance.TryRemoveCharacter(id);
+            if (CharacterService.Instance.TryRemoveCharacter(id))
+            {
+                Debug.LogError("Error in TryRemoveCharacter - Can't remove character");
+            }
         }
     }
 }
