@@ -11,7 +11,7 @@ namespace Excercise1
         {
             if (CharacterService.Instance.TryAddCharacter(id, this))
             {
-                Debug.LogError("Error in TryAddCharacter - Can't add character");
+                Debug.LogError($"Error in TryAddCharacter - Can't add character with ID: {id}");
             }
         }
 
@@ -19,7 +19,7 @@ namespace Excercise1
         {
             if (CharacterService.Instance.TryRemoveCharacter(id))
             {
-                Debug.LogError("Error in TryRemoveCharacter - Can't remove character");
+                Debug.LogError($"Error in TryRemoveCharacter - Can't remove character with ID: {id}");
             }
         }
     }
