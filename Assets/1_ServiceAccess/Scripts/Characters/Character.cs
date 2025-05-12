@@ -9,7 +9,7 @@ namespace Excercise1
 
         protected virtual void OnEnable()
         {
-            if (CharacterService.Instance.TryAddCharacter(id, this))
+            if (!CharacterService.Instance.TryAddCharacter(id, this))
             {
                 Debug.LogError($"Error in TryAddCharacter - Can't add character with ID: {id}");
             }
@@ -17,7 +17,7 @@ namespace Excercise1
 
         protected virtual void OnDisable()
         {
-            if (CharacterService.Instance.TryRemoveCharacter(id))
+            if (!CharacterService.Instance.TryRemoveCharacter(id))
             {
                 Debug.LogError($"Error in TryRemoveCharacter - Can't remove character with ID: {id}");
             }

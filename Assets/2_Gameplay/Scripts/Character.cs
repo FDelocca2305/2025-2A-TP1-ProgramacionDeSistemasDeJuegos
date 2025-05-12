@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Gameplay
@@ -11,6 +12,7 @@ namespace Gameplay
         [SerializeField] private float jumpForce = 10;
         private Vector3 _direction = Vector3.zero;
         private Rigidbody _rigidbody;
+        public event Action OnLand;
 
         private void Awake()
             => _rigidbody = GetComponent<Rigidbody>();
@@ -25,10 +27,24 @@ namespace Gameplay
         public void SetDirection(Vector3 direction)
             => _direction = direction;
 
-        public IEnumerator Jump()
+        public void Jump()
         {
-            yield return new WaitForFixedUpdate();
+            var linearVelocity = _rigidbody.linearVelocity;
+            linearVelocity = new Vector3(linearVelocity.x, 0, linearVelocity.z);
+            _rigidbody.linearVelocity = linearVelocity;
             _rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
+        
+        private void OnCollisionEnter(Collision col)
+        {
+            foreach (var c in col.contacts)
+            {
+                if (c.normal.y > 0.9f)
+                {
+                    OnLand?.Invoke();
+                    break;
+                }
+            }
         }
     }
 }
