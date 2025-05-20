@@ -6,6 +6,11 @@ namespace Excercise1
     public class Character : MonoBehaviour, ICharacter
     {
         [SerializeField] protected string id;
+        
+        private void Awake() {
+            if (string.IsNullOrWhiteSpace(id))
+                Debug.LogError($"[{nameof(Character)}] ‘id’ no puede estar vacío en {name}");
+        }
 
         protected virtual void OnEnable()
         {

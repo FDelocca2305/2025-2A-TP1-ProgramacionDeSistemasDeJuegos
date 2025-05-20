@@ -9,6 +9,13 @@ namespace Excercise1
 
         private void Reset()
             => id = nameof(Player);
+        
+        private void Awake() {
+            if (frequency <= 0) {
+                Debug.LogWarning($"[{name}] ‘frequency’ debe ser > 0, usando 1 por defecto.");
+                frequency = 1;
+            }
+        }
 
         private void Update()
         {

@@ -5,8 +5,9 @@ namespace Excercise1
 {
     public class Enemy : Character
     {
+        private const string DefaultPlayerId = "Player";
         [SerializeField] private float speed = 5;
-        [SerializeField] private string playerId = "Player";
+        [SerializeField] private string playerId = DefaultPlayerId;
         private ICharacter _player;
         private string _logTag;
 
@@ -19,8 +20,13 @@ namespace Excercise1
         protected override void OnEnable()
         {
             base.OnEnable();
-            if (!CharacterService.Instance.TryGetCharacter(playerId, out _player))
-                Debug.LogError($"{_logTag} Player not found!");
+            if (CharacterService.Instance == null) {
+                Debug.LogError($"{_logTag} No existe CharacterService en la escena.");
+                return;
+            }
+            if (!CharacterService.Instance.TryGetCharacter(playerId, out _player)) {
+                Debug.LogError($"{_logTag} No se encontró player con ID ‘{playerId}’");
+            }
         }
 
         private void Update()
