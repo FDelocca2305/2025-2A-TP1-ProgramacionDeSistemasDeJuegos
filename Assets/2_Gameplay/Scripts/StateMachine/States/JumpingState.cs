@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
-using UnityEngine.InputSystem;
+﻿using UnityEngine;
 
 namespace Gameplay.StateMachine.States
 {
@@ -46,7 +44,7 @@ namespace Gameplay.StateMachine.States
             {
                 if (Vector3.Angle(contact.normal, Vector3.up) < 5)
                 {
-                    _controller.ChangeState(new GroundedState(_controller));
+                    HandleLand();
                     break;
                 }
             }
