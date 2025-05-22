@@ -25,11 +25,11 @@ namespace Gameplay.StateMachine.States
             _controller.Character.OnLand -= HandleLand;
         }
 
-        public void HandleInput(Vector3 moveInput, bool jumpPressed)
+        public void HandleInput(InputData inputData)
         {
-            _controller.Character.SetDirection(moveInput * _controller.AirborneSpeedMultiplier);
+            _controller.Character.SetDirection(inputData.MoveVector * _controller.AirborneSpeedMultiplier);
 
-            if (jumpPressed && _jumpsLeft > 0)
+            if (inputData.JumpPressed && _jumpsLeft > 0)
             {
                 _controller.Character.Jump();
                 _jumpsLeft--;
@@ -50,9 +50,16 @@ namespace Gameplay.StateMachine.States
             }
         }
         
+        public MovementStateID? HandleTrigger(MovementTrigger trigger)
+        {
+            if (trigger == MovementTrigger.Land)
+                return MovementStateID.Grounded;
+            return null;
+        }
+        
         private void HandleLand()
         {
-            _controller.ChangeState(new GroundedState(_controller));
+            _controller.FireTrigger(MovementTrigger.Land);
         }
 
     }

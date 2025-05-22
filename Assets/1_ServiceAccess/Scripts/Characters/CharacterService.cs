@@ -14,7 +14,7 @@ namespace Excercise1
                 DontDestroyOnLoad(gameObject);
             }
             else if (Instance != this) {
-                Debug.LogWarning($"[{nameof(CharacterService)}] Eliminando instancia duplicada en {name}");
+                Debug.LogWarning($"[{nameof(CharacterService)}] deleting duplicated instance of {name}");
                 Destroy(gameObject);
             }
         }
@@ -36,7 +36,7 @@ namespace Excercise1
             if (string.IsNullOrWhiteSpace(id))
             {
                 character = null; 
-                Debug.LogError($"[{nameof(CharacterService)}] TryGetCharacter recibió un ID nulo o vacío.");
+                Debug.LogError($"[{nameof(CharacterService)}] TryGetCharacter received a null or empty id.");
                 return false;
             }
             
@@ -45,7 +45,7 @@ namespace Excercise1
                 return true;
             }
             
-            Debug.LogWarning($"[{nameof(CharacterService)}] No se encontró Character con ID '{id}'.");
+            Debug.LogWarning($"[{nameof(CharacterService)}] character was not found with id: '{id}'.");
             return false;
         }
     }

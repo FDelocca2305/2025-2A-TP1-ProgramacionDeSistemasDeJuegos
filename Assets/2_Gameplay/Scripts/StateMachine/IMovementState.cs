@@ -5,9 +5,10 @@ namespace Gameplay.StateMachine
     public interface IMovementState
     {
         void Enter();
-        void HandleInput(Vector3 moveInput, bool jumpPressed);
+        void HandleInput(InputData inputData);
         void PhysicsUpdate();
         void OnCollisionEnter(Collision collision);
         void Exit();
+        MovementStateID? HandleTrigger(MovementTrigger trigger);
     }
 }

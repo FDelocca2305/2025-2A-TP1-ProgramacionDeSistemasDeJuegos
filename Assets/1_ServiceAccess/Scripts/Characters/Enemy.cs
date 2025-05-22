@@ -21,11 +21,11 @@ namespace Excercise1
         {
             base.OnEnable();
             if (CharacterService.Instance == null) {
-                Debug.LogError($"{_logTag} No existe CharacterService en la escena.");
+                Debug.LogError($"{_logTag} CharacterService does not exist in scene.");
                 return;
             }
             if (!CharacterService.Instance.TryGetCharacter(playerId, out _player)) {
-                Debug.LogError($"{_logTag} No se encontró player con ID ‘{playerId}’");
+                Debug.LogError($"{_logTag} Player not found with id: ‘{playerId}’");
             }
         }
 

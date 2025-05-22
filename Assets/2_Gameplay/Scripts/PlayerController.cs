@@ -1,5 +1,4 @@
 using Gameplay.StateMachine;
-using Gameplay.StateMachine.States;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,14 +20,13 @@ namespace Gameplay
         
         public Character Character => _character;
         public float AirborneSpeedMultiplier => airborneSpeedMultiplier;
-        public void ChangeState(IMovementState next) => _movementStateMachine.ChangeState(next);
         public int MaxJumps => maxJumps;
         
         private void Awake()
         {
             _character = GetComponent<Character>();
-            _movementStateMachine = new MovementStateMachine();
-            _movementStateMachine.Initialize(new GroundedState(this));
+            _movementStateMachine = new MovementStateMachine(this);
+            _movementStateMachine.Initialize(MovementStateID.Grounded);
         }
 
         private void OnEnable()
@@ -66,7 +64,11 @@ namespace Gameplay
         }
         
         private void Update() {
-            _movementStateMachine.HandleInput(_moveValue, _jumpPressed);
+            var data = new InputData {
+                MoveVector  = _moveValue,
+                JumpPressed = _jumpPressed
+            };
+            _movementStateMachine.HandleInput(data);
             _jumpPressed = false;
         }
         
@@ -76,6 +78,8 @@ namespace Gameplay
 
         private void OnCollisionEnter(Collision col)
             => _movementStateMachine.OnCollisionEnter(col);
+        
+        public void FireTrigger(MovementTrigger trigger) => _movementStateMachine.FireTrigger(trigger);
         
     }
 }

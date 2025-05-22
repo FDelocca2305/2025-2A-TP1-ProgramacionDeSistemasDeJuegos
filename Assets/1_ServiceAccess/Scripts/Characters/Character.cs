@@ -9,7 +9,7 @@ namespace Excercise1
         
         private void Awake() {
             if (string.IsNullOrWhiteSpace(id))
-                Debug.LogError($"[{nameof(Character)}] ‘id’ no puede estar vacío en {name}");
+                Debug.LogError($"[{nameof(Character)}] can not be null {name}");
         }
 
         protected virtual void OnEnable()

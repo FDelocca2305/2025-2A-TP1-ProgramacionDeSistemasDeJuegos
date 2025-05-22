@@ -11,11 +11,11 @@ namespace Gameplay.StateMachine.States
         public void Enter() { _moveDir = Vector3.zero; }
         public void Exit() { }
 
-        public void HandleInput(Vector3 moveInput, bool jumpPressed)
+        public void HandleInput(InputData inputData)
         {
-            _moveDir = moveInput;
-            if (jumpPressed)
-                _controller.ChangeState(new JumpingState(_controller));
+            _moveDir = inputData.MoveVector;
+            if (inputData.JumpPressed)
+                _controller.FireTrigger(MovementTrigger.Jump);
         }
 
         public void PhysicsUpdate()
@@ -24,5 +24,12 @@ namespace Gameplay.StateMachine.States
         }
 
         public void OnCollisionEnter(Collision col) { }
+        
+        public MovementStateID? HandleTrigger(MovementTrigger trigger)
+        {
+            if (trigger == MovementTrigger.Jump)
+                return MovementStateID.Jumping;
+            return null;
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace Excercise1
         
         private void Awake() {
             if (frequency <= 0) {
-                Debug.LogWarning($"[{name}] ‘frequency’ debe ser > 0, usando 1 por defecto.");
+                Debug.LogWarning($"[{name}] frequency should be > 0, using 1 by default.");
                 frequency = 1;
             }
         }
