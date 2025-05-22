@@ -65,12 +65,12 @@ namespace Gameplay
             _jumpPressed = ctx.performed;
         }
         
-        void Update() {
+        private void Update() {
             _movementStateMachine.HandleInput(_moveValue, _jumpPressed);
             _jumpPressed = false;
         }
         
-        void FixedUpdate() {
+        private void FixedUpdate() {
             _movementStateMachine.PhysicsUpdate();
         }
 
